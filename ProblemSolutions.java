@@ -34,7 +34,32 @@ class ProblemSolutions {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
 
-        return false;
+        //Sorts the arrays and creates a bollean to later compare them
+        Arrays.sort(list1);
+        Arrays.sort(list2);
+        boolean isSubset = true;
+       
+        //creates two ints to track the arrays
+        int track1 = 0, track2 = 0;
+        
+        //uses a while loop to iterate and compare the two arrays
+        while (track1 < list1.length && track2 < list2.length){
+            //if the two arrays are equal, increment both tracks
+            if (list1[track1] == list2[track2]){
+                track1++;
+                track2++;
+                //if the first array is less than the second, increment the first track
+            } else if (list1[track1] < list2[track2]){
+                track1++;
+            } else {
+                //if the second array is less than the first, the second array is not a subset of the first
+                isSubset = false;
+                break;
+            }
+        }
+
+
+        return isSubset;
     }
 
 
@@ -54,8 +79,13 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
+    
+        /*Sorts the array and returns the kth largest element by 
+        subtracting k from the length of the array*/
+        Arrays.sort(array);
+        int kMax = array[array.length - k];
 
-        return 0;
+        return kMax;
     }
 
 
@@ -76,7 +106,41 @@ class ProblemSolutions {
 
         // ADD YOU CODE HERE
 
-        return null;
+        //creates ints needed to track the arrays and their lengths
+        int len1 = array1.length;
+        int len2 = array2.length;
+        int nTrack = 0, mTrack = 0;
+
+        //sorts the arrays and creates a new array to store the sorted elements
+        Arrays.sort(array1);
+        Arrays.sort(array2);
+
+        int[] result = new int[len1 + len2];
+
+        for (int i = 0; i < result.length; i++){
+            //makes sure the tracks are not at the end of the arrays
+           if (nTrack != len1 && mTrack != len2){
+                //compares the two arrays and adds the smaller element to the result array
+               if (array1[nTrack] < array2[mTrack]){
+                   result[i] = array1[nTrack];
+                   nTrack++;
+               } else {
+                   result[i] = array2[mTrack];
+                   mTrack++;
+               }
+           } 
+           //when one array is empty, the other array is added to the result array and the track is incremented
+           else if (nTrack == len1){
+               result[i] = array2[mTrack];
+               mTrack++;
+           }
+           else {
+               result[i] = array1[nTrack];
+               nTrack++;
+           }
+        }
+
+        return result;
     }
 
 }
